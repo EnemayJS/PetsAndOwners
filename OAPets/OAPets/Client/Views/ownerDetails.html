@@ -1,0 +1,52 @@
+﻿<div ng-controller="OwnerDetailsController">
+    <div class="container">
+        <div class="row col-md-12 col-sm-12 col-xs-12">
+            <!-- Dispaly owner name -->
+            <h1 class="text-center">{{ownerName}}</h1>
+            <!--Link back to list of owners -->
+            <a href="#owners" style="float: left">Back to all Owners</a>
+            <!--Form to add new pet -->
+            <form class="form-inline col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4 col-xs-12">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="name" placeholder="Enter pet's name" [required="string" ] data-ng-model="pet.name" />
+                    <!--button click  invokes method createPet() from OwnerDetailsController -->
+                    <button type="button" class="btn btn-primary" data-ng-click="createPet()">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row col-md-8 col-md-offset-3 col-sm-8 col-sm-offset-3 col-sx-8">
+            <!-- total count of all owner's pets -->
+            <h4 class="text-left">Total count: {{pagingInfo.totalItems}}</h4>
+
+            <table class="table-bordered table-striped table-responsive row col-md-8 col-sm-8 col-sx-12">
+                <tr>
+                    <th>Name</th>
+                </tr>
+                <!-- data-ng-repeat makes AngularJS iterate table rows to fill table with data-->
+                <tbody data-ng-repeat="pet in pets">
+                    <tr>
+                        <td>{{pet.PetName}} 
+                            <!--button click  invokes method deletePet() from OwnerDetailsController -->
+                        <button type="button" class="btn btn-default" style="float: right" data-ng-click="deletePet(pet.PetId)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- ui.bootstrap pagiantion widget -->
+            <div class="row col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+                <ul uib-pagination
+                    total-items="pagingInfo.totalItems"
+                    items-per-page="pagingInfo.itemsPerPage"
+                    ng-model="pagingInfo.page"
+                    max-size="10"
+                    class="pagination-sm"
+                    boundary-link-numbers="true"
+                    rotate="false"
+                    ng-change="selectPage()"
+                    boundary-links="false"></ul>
+            </div>
+        </div>
+    </div>
+</div>
